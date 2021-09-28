@@ -29,9 +29,9 @@ export const Nav = (props: ConversationArrayType) => {
             <div className={p.sentence}>
                 <NavLink to="/settings" activeClassName={p.activeLink}>Settings</NavLink>
             </div>
-            {/*<div className={p.sentence}>*/}
-            {/*    <NavLink to="/users" activeClassName={p.activeLink}>Users</NavLink>*/}
-            {/*</div>*/}
+            <div className={p.sentence}>
+                <NavLink to="/users" activeClassName={p.activeLink}>Users</NavLink>
+            </div>
             <div className={p.sentence}>
                 <NavLink to="/Friends" className={p.avatar}>Friends</NavLink>
                 <div>{fotka}</div>

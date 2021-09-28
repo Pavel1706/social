@@ -8,26 +8,50 @@ type UsersStateType = {
     followUser: (id: number) => void;
     unfollowUser: (id: number) => void;
     setUsers: (users: Array<UserType>) => void;
+    pageSize: number
+    totalUsersCount: number
+    currentPage:number
+    setCurrent: (value:number)=>void
+    setTotalUsersCount: (value:number)=>void
 }
-
-
 
 
 export class Users extends React.Component<UsersStateType, {}> {
 
-    constructor(props:UsersStateType) {
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users`)
+    // constructor(props:UsersStateType) {
+    //     super(props);
+    // }
+    componentDidMount() {
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
             .then(response => {
-                debugger
                 this.props.setUsers(response.data.items)
+                this.props.setTotalUsersCount(response.data.totalCount)
             })
-
-        super(props);
     }
 
-    render(){
-        return <div>
 
+    render() {
+
+        let pagesCount = Math.ceil(this.props.totalUsersCount / this.props.pageSize)
+        let pages = [];
+        for (let i = 1; i <= pagesCount; i++) {
+            pages.push(i)
+        }
+       const onPageChanged = (pageNumber:number)=> {
+            this.props.setCurrent(pageNumber)
+           axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`)
+               .then(response => {
+                   this.props.setUsers(response.data.items)
+               })
+        }
+        return <div>
+            <div>
+                {pages.map(t=> {
+                 return <span className={this.props.currentPage===t ? styles.selectedPage:''}
+                 onClick={()=>{onPageChanged(t)}}>{t}</span>
+                })}
+
+            </div>
             {
                 this.props.usersState.map(t => <div key={t.id}>
                 <span>

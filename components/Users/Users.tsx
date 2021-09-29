@@ -1,6 +1,6 @@
-import React from 'react';
-import styles from './users.module.css'
 import axios from 'axios';
+import React from 'react';
+import styles from "./users.module.css";
 import {UserType} from "../../Redux/usersReducer";
 
 type UsersStateType = {
@@ -10,50 +10,43 @@ type UsersStateType = {
     setUsers: (users: Array<UserType>) => void;
     pageSize: number
     totalUsersCount: number
-    currentPage:number
-    setCurrent: (value:number)=>void
-    setTotalUsersCount: (value:number)=>void
+    currentPage: number
+    setCurrent: (value: number) => void
+    setTotalUsersCount: (value: number) => void
 }
 
 
-export class Users extends React.Component<UsersStateType, {}> {
 
-    // constructor(props:UsersStateType) {
-    //     super(props);
-    // }
-    componentDidMount() {
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
+export let Users = (props: UsersStateType) => {
+
+
+
+    const onPageChanged = (pageNumber: number) => {
+        props.setCurrent(pageNumber)
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${props.pageSize}`)
             .then(response => {
-                this.props.setUsers(response.data.items)
-                this.props.setTotalUsersCount(response.data.totalCount)
+                props.setUsers(response.data.items)
             })
     }
 
+    let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize)
+    let pages = [];
+    for (let i = 1; i <= pagesCount; i++) {
+        pages.push(i)
+    }
 
-    render() {
+    return <div>
+        <div>
+            {pages.map(t => {
+                return <span className={props.currentPage === t ? styles.selectedPage : ''}
+                             onClick={() => {
+                                 onPageChanged(t)
+                             }}>{t}</span>
+            })}
 
-        let pagesCount = Math.ceil(this.props.totalUsersCount / this.props.pageSize)
-        let pages = [];
-        for (let i = 1; i <= pagesCount; i++) {
-            pages.push(i)
-        }
-       const onPageChanged = (pageNumber:number)=> {
-            this.props.setCurrent(pageNumber)
-           axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`)
-               .then(response => {
-                   this.props.setUsers(response.data.items)
-               })
-        }
-        return <div>
-            <div>
-                {pages.map(t=> {
-                 return <span className={this.props.currentPage===t ? styles.selectedPage:''}
-                 onClick={()=>{onPageChanged(t)}}>{t}</span>
-                })}
-
-            </div>
-            {
-                this.props.usersState.map(t => <div key={t.id}>
+        </div>
+        {
+            props.usersState.map(t => <div key={t.id}>
                 <span>
                     <div>
                         <img
@@ -65,27 +58,22 @@ export class Users extends React.Component<UsersStateType, {}> {
                             t.followed
                                 ?
                                 <button onClick={() => {
-                                    this.props.unfollowUser(t.id)
+                                    props.unfollowUser(t.id)
                                 }}>UnFollow</button>
                                 :
                                 <button onClick={() => {
-                                    this.props.followUser(t.id)
+                                    props.followUser(t.id)
                                 }}>Follow</button>
                         }
                     </div>
                 </span>
-                    <span>
+                <span>
                     <span>
                         <div>{t.name}</div>
                         <div>{t.status}</div>
                     </span>
-                        {/*<span>
-                        <div>{t.location.country}</div>
-                        <div>{t.location.city}</div>
-                    </span>*/}
                 </span>
-                </div>)
-            }
-        </div>
-    }
+            </div>)
+        }
+    </div>
 }

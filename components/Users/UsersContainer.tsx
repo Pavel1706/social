@@ -9,7 +9,7 @@ import {
     UsersActionsType,
     UserType
 } from "../../Redux/usersReducer";
-import {Users} from "./Users";
+import { UsersAPIComponent} from "./UsersAPIComponent";
 import {AppStateType} from "../../Redux/reduxStore";
 
 const mapStateToProps = (state: AppStateType) => {
@@ -41,4 +41,4 @@ const mapDispatchToProps = (dispatch: (action: UsersActionsType) => void) => {
     }
 }
 
-export const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(Users)
+export const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(UsersAPIComponent)

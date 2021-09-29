@@ -13,21 +13,12 @@ type UsersStateType = {
     currentPage: number
     setCurrent: (value: number) => void
     setTotalUsersCount: (value: number) => void
+    onPageChanged:(value:number)=> void
 }
 
 
 
 export let Users = (props: UsersStateType) => {
-
-
-
-    const onPageChanged = (pageNumber: number) => {
-        props.setCurrent(pageNumber)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${props.pageSize}`)
-            .then(response => {
-                props.setUsers(response.data.items)
-            })
-    }
 
     let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize)
     let pages = [];
@@ -40,7 +31,7 @@ export let Users = (props: UsersStateType) => {
             {pages.map(t => {
                 return <span className={props.currentPage === t ? styles.selectedPage : ''}
                              onClick={() => {
-                                 onPageChanged(t)
+                                 props.onPageChanged(t)
                              }}>{t}</span>
             })}
 

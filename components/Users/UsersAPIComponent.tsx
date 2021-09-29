@@ -34,9 +34,14 @@ export class UsersAPIComponent extends React.Component<UsersStateType, {}> {
     render() {
 
 
-
-        return <Users setUsers={this.props.setUsers} currentPage={this.props.currentPage} setCurrent={this.props.setCurrent}
-         setTotalUsersCount={this.props.setTotalUsersCount} totalUsersCount={this.props.totalUsersCount} usersState={this.props.usersState}
-        followUser={this.props.followUser} pageSize={this.props.pageSize} unfollowUser={this.props.unfollowUser}/>
+        return <Users setUsers={this.props.setUsers}
+                      currentPage={this.props.currentPage}
+                      setCurrent={this.props.setCurrent}
+                      setTotalUsersCount={this.props.setTotalUsersCount}
+                      totalUsersCount={this.props.totalUsersCount}
+                      usersState={this.props.usersState}
+                      followUser={this.props.followUser}
+                      pageSize={this.props.pageSize}
+                      unfollowUser={this.props.unfollowUser}/>
     }
 }

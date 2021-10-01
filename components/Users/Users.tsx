@@ -14,6 +14,7 @@ type UsersStateType = {
     setCurrent: (value: number) => void
     setTotalUsersCount: (value: number) => void
     onPageChanged:(value:number)=> void
+
 }
 
 

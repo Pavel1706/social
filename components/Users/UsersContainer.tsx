@@ -12,7 +12,6 @@ import {
 import {AppStateType} from '../../Redux/reduxStore';
 import {Users} from './Users';
 import axios from 'axios';
-import preloader from '../../assets/images/1488.gif'
 import {Preloader} from "../common/Preloader/Preloader";
 
 type UsersStateType = {

@@ -15,7 +15,7 @@ export const Nav = (props: ConversationArrayType) => {
     return (
         <nav className={p.nav}>
             <div className={`${p.sentence} ${p.active}`}>
-                <NavLink to="/face" activeClassName={p.activeLink}>Profile</NavLink>
+                <NavLink to="/profile" activeClassName={p.activeLink}>Profile</NavLink>
             </div>
             <div className={p.sentence}>
                 <NavLink to="/conversation" activeClassName={p.activeLink}>Messages</NavLink>

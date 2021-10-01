@@ -2,6 +2,7 @@ import axios from 'axios';
 import React from 'react';
 import styles from "./users.module.css";
 import {UserType} from "../../Redux/usersReducer";
+import { NavLink } from 'react-router-dom';
 
 type UsersStateType = {
     usersState: Array<UserType>
@@ -41,9 +42,11 @@ export let Users = (props: UsersStateType) => {
             props.usersState.map(t => <div key={t.id}>
                 <span>
                     <div>
+                        <NavLink to={'/profile/'+t.id}>
                         <img
                             src={t.photos.small != null ? t.photos.small : 'https://i.pinimg.com/736x/9b/80/f0/9b80f06c91e4c03c63059d35ff943168.jpg'}
                             className={styles.photo}/>
+                            </NavLink>
                     </div>
                     <div>
                         {

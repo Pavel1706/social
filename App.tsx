@@ -21,7 +21,7 @@ const App: React.FC = () => {
                 <Nav dialogs={store._state.dialogsPage.dialogs}/>
                 <div className='app-wrapper-content '>
                     <Route path='/conversation' render={()=><Conversation  />}/>
-                    <Route path='/face' render={()=><Profile    />}/>
+                    <Route path='/profile' render={()=><Profile    />}/>
                     <Route path='/users' render={()=><UsersContainer />}/>
 
                     <Route path='/news' />

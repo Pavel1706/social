@@ -1,15 +1,16 @@
 import React from 'react';
-
 import {ProfileInfo} from "./FaceInfo/ProfileInfo";
-
 import {SuperDialogsContainer} from "./myDreams/MyPostsContainer";
 
+type ProfileType = {
+    profile: any
+}
 
-export const Profile = () => {
+export const Profile = (props:ProfileType) => {
 
     return (
         <div>
-            <ProfileInfo message={'Hello there buddy'}/>
+            <ProfileInfo profile={props.profile}/>
             <SuperDialogsContainer
 
             />

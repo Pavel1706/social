@@ -14,7 +14,7 @@ import {Users} from './Users';
 import axios from 'axios';
 import {Preloader} from "../common/Preloader/Preloader";
 
-type UsersStateType = {
+export type UsersStateType = {
     usersState: Array<UserType>
     followUser: (id: number) => void;
     unfollowUser: (id: number) => void;

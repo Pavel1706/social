@@ -1,12 +1,18 @@
 import React from 'react';
 import p from './FaceInfo.module.css';
+import {Preloader} from "../../common/Preloader/Preloader";
 
-type ProfileInfoType = {
-    message: string
+type ProfileType = {
+    profile: any
 }
 
 
-export const ProfileInfo = (props:ProfileInfoType ) => {
+export const ProfileInfo = (props:ProfileType ) => {
+    debugger
+    if(!props.profile){
+        return <Preloader loading={true} />
+    }
+
     return (
         <div>
             <div>
@@ -14,7 +20,7 @@ export const ProfileInfo = (props:ProfileInfoType ) => {
                     src='https://p.bigstockphoto.com/GeFvQkBbSLaMdpKXF1Zv_bigstock-Aerial-View-Of-Blue-Lakes-And--227291596.jpg'/>
             </div>
             <div className={p.descriptionBlock}>
-                {props.message}
+                {props.profile}
             </div>
 
         </div>

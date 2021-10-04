@@ -1,5 +1,6 @@
 import React from 'react';
-import {DreamType, StoreType} from "./State";
+import {DreamType} from "./State";
+
 
 let initialState: InitialStateType = {
     posts: [
@@ -8,12 +9,14 @@ let initialState: InitialStateType = {
         {id: 3, message: 'Hey buddy! How`re you?', like: 35},
         {id: 4, message: 'Hey there! Take it easy?', like: 77},
     ],
-    newPostText: ''
+    newPostText: '',
+    profile: null
 }
 
 export type InitialStateType = {
     posts: Array<DreamType>
     newPostText: string
+    profile:null
 }
 
 export const profileReducer = (state = initialState, action: ProfileActionsType): InitialStateType => {
@@ -35,7 +38,10 @@ export const profileReducer = (state = initialState, action: ProfileActionsType)
                 ...state,
                 newPostText: action.newText
             }
-
+        case 'SET-USER-PROFILE':
+            return {
+                ...state, profile: action.profile
+            }
         default:
             return state
     }
@@ -53,8 +59,15 @@ export const addPostAC = () => {
         type: "ADD-POST"
     } as const
 }
+export const setUserProfileAC=(profile:null)=>{
+    return {
+        type: 'SET-USER-PROFILE',
+        profile:profile
+    }as const
+}
 
 
 type ChangeNewTextActionType = ReturnType<typeof changeNewTextAC>
+type SetUserProfileType = ReturnType<typeof setUserProfileAC>
 type AddPostActionType = ReturnType<typeof addPostAC>
-type ProfileActionsType = ChangeNewTextActionType | AddPostActionType
+type ProfileActionsType = ChangeNewTextActionType | AddPostActionType | SetUserProfileType

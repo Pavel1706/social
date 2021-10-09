@@ -1,14 +1,15 @@
 import React from 'react';
 import p from './FaceInfo.module.css';
 import {Preloader} from "../../common/Preloader/Preloader";
+import {NewProfileType} from "../../../Redux/profileReducer";
 
 type ProfileType = {
-    profile: any
+    profile: NewProfileType
 }
 
 
 export const ProfileInfo = (props:ProfileType ) => {
-    debugger
+
     if(!props.profile){
         return <Preloader loading={true} />
     }
@@ -20,7 +21,8 @@ export const ProfileInfo = (props:ProfileType ) => {
                     src='https://p.bigstockphoto.com/GeFvQkBbSLaMdpKXF1Zv_bigstock-Aerial-View-Of-Blue-Lakes-And--227291596.jpg'/>
             </div>
             <div className={p.descriptionBlock}>
-                {props.profile}
+                <img width='100px' height='100px' src={props.profile.photos.large}/>
+                {props.profile.fullName}
             </div>
 
         </div>

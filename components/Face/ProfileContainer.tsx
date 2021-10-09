@@ -1,11 +1,12 @@
 import axios from 'axios';
-import React from 'react';
+import React, { useEffect } from 'react';
 import {Profile} from "./Profile";
 
 import { connect } from 'react-redux';
 import {AppStateType} from "../../Redux/reduxStore";
-import {setUserProfileAC} from "../../Redux/profileReducer";
+import {NewProfileType, setUserProfileAC} from "../../Redux/profileReducer";
 import {RouteComponentProps, withRouter } from 'react-router-dom';
+
 
 
 type PathParamsType = {
@@ -13,32 +14,63 @@ type PathParamsType = {
 }
 
 type MapStatePropsType = {
-    profile: any
+    profile: NewProfileType
 }
 
 type MapDispatchPropsType ={
-    setUserProfile:(value:any)=> void
+    setUserProfile:(profile:NewProfileType)=> void
 }
 type UsersStateType= MapStatePropsType & MapDispatchPropsType
 type PropsType = RouteComponentProps<PathParamsType>& UsersStateType
 
- class ProfileContainer extends React.Component<PropsType, {}>{
+function ProfileContainer (props:PropsType){
 
-    componentDidMount(){
-        let userId = this.props.match.params.userId
-        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/2` + userId)
+    useEffect(()=>{
+        let userId = props.match.params.userId
+        debugger
+        console.log(userId)
+        if(!userId){
+            JSON.stringify(userId)
+        }
+        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/` + userId )
             .then(response => {
-                this.props.setUserProfile(response.data)
+                debugger
+                props.setUserProfile(response.data)
             })
-    }
+    },[])
 
-    render()
-    {
         return (
-            <Profile {...this.props} profile={this.props.profile} />
+            <Profile profile={props.profile} />
         )
-    }
+
 }
+
+
+
+
+//  class ProfileContainer extends React.Component<PropsType, {}>{
+//
+//     componentDidMount(){
+//         let userId = this.props.match.params
+//         debugger
+//         console.log(userId)
+//         if(!userId){
+//             JSON.stringify(userId)
+//         }
+//         axios.get(`https://social-network.samuraijs.com/api/1.0/profile/` + userId )
+//             .then(response => {
+//                 debugger
+//                 this.props.setUserProfile(response.data)
+//             })
+//     }
+//
+//     render()
+//     {
+//         return (
+//             <Profile {...this.props} profile={this.props.profile} />
+//         )
+//     }
+// }
 
 const mapStateToProps = (state:AppStateType) : MapStatePropsType=>    ( {
         profile: state.profilePage.profile

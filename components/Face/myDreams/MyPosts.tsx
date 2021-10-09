@@ -8,7 +8,7 @@ import {MyPostsPropsType} from "./MyPostsContainer";
 export const MyPosts = (props: MyPostsPropsType) => {
 
 
-    let newText = props.profilePage.posts.map(d => <Post message={d.message} like={d.like}/>)
+    let newText = props.profilePage.posts.map(d => <Post key={d.id} message={d.message} like={d.like}/>)
     // let newDreamElement = React.createRef<HTMLTextAreaElement>()
     let onAddPost = () => {
         props.addPost()

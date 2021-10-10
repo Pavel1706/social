@@ -11,7 +11,7 @@ type ConversationArrayType = {
 }
 
 export const Nav = (props: ConversationArrayType) => {
-    let fotka = props.dialogs.map(t=> <img className={p.avatar} src={t.foto}/>)
+    let fotka = props.dialogs.map(t=> <img key={t.id} className={p.avatar} src={t.foto}/>)
     return (
         <nav className={p.nav}>
             <div className={`${p.sentence} ${p.active}`}>

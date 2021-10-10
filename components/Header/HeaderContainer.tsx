@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {NavLink, withRouter} from 'react-router-dom';
+import {NavLink, RouteComponentProps, withRouter} from 'react-router-dom';
 import style from './Header.module.css';
 import {Header} from "./Header";
 import axios from 'axios';
@@ -8,13 +8,15 @@ import {NewProfileType, setUserProfileAC} from "../../Redux/profileReducer";
 import {connect} from 'react-redux';
 import {authReducer, setUserDataAC} from "../../Redux/authReducer";
 
+type PathParamsType={
+    userId: string
+}
 
-type DataType = {
+
+export type DataType = {
     id: number | null
     email: string | null
     login: string | null
-    setUserData: (id:number, email:string, login:string)=> void
-
 }
 type MapStatePropsType = {
     data: {
@@ -22,9 +24,15 @@ type MapStatePropsType = {
         email: string | null
         login: string | null
     }
+    isAuth: boolean
 }
+type MapDispatchPropsType={
+    setUserData: (id:number, email:string, login:string)=> void
+}
+ type UsersStateType= MapStatePropsType & MapDispatchPropsType
+type PropsType = RouteComponentProps<PathParamsType>& UsersStateType
 
-export function HeaderContainer(props:DataType) {
+function HeaderContainer(props:PropsType) {
 
     useEffect(() => {
         axios.get(`https://social-network.samuraijs.com/api/1.0/auth/me`, {
@@ -32,47 +40,28 @@ export function HeaderContainer(props:DataType) {
         })
             .then(response => {
                 if(response.data.resultCode ===0){
-                    props.data.setUserData(response.data.)
+                    debugger
+                    let {id,email,login}=response.data.data
+                    props.setUserData(id,email,login)
                 }
-                debugger
+
             })
 
     }, [])
     return (
-        <Header/>
+        <Header data={props.data} isAuth={props.isAuth}/>
     )
 }
 
 const mapStateToProps = (state: AppStateType): MapStatePropsType => ({
-    data: state.auth.data
+    data: state.auth.data,
+    isAuth: state.auth.isAuth,
+
 })
 
 let WithUrlDataContainerComponent = withRouter(HeaderContainer)
 
 
 export default connect(mapStateToProps, {
-    auth: authReducer
+    setUserData: setUserDataAC
 })(WithUrlDataContainerComponent)
-//  class ProfileContainer extends React.Component<PropsType, {}>{
-//
-//     componentDidMount(){
-//         let userId = this.props.match.params
-//         debugger
-//         console.log(userId)
-//         if(!userId){
-//             JSON.stringify(userId)
-//         }
-//         axios.get(`https://social-network.samuraijs.com/api/1.0/profile/` + userId )
-//             .then(response => {
-//                 debugger
-//                 this.props.setUserProfile(response.data)
-//             })
-//     }
-//
-//     render()
-//     {
-//         return (
-//             <Profile {...this.props} profile={this.props.profile} />
-//         )
-//     }
-// }

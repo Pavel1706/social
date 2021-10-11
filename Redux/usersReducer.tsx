@@ -9,7 +9,7 @@ let initialState: InitialStateType = {
     isFetching: false
 }
 
-export type  UserType = {
+export type UserType = {
     id: number;
     name: string;
     status?: string;

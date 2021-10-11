@@ -13,6 +13,7 @@ import {AppStateType} from '../../Redux/reduxStore';
 import {Users} from './Users';
 import axios from 'axios';
 import {Preloader} from "../common/Preloader/Preloader";
+import {usersAPI} from "../../API/Api";
 
 export type UsersStateType = {
     usersState: Array<UserType>
@@ -33,21 +34,21 @@ export class UsersContainerComponent extends React.Component<UsersStateType, {}>
 
     componentDidMount() {
         this.props.setToggleIsFetching(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
-            .then(response => {
+        usersAPI.getUsers(this.props.currentPage,this.props.pageSize)
+            .then(data => {
                 this.props.setToggleIsFetching(false)
-                this.props.setUsers(response.data.items)
-                this.props.setTotalUsersCount(response.data.totalCount)
+                this.props.setUsers(data.items)
+                this.props.setTotalUsersCount(data.totalCount)
             })
     }
 
     onPageChanged = (pageNumber: number) => {
         this.props.setCurrent(pageNumber)
         this.props.setToggleIsFetching(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`)
-            .then(response => {
+        usersAPI.getUsers(pageNumber,this.props.pageSize)
+            .then(data => {
                 this.props.setToggleIsFetching(false)
-                this.props.setUsers(response.data.items)
+                this.props.setUsers(data.items)
             })
     }
 
@@ -67,6 +68,7 @@ export class UsersContainerComponent extends React.Component<UsersStateType, {}>
                    followUser={this.props.followUser}
                    pageSize={this.props.pageSize}
                    unfollowUser={this.props.unfollowUser}
+                   setToggleIsFetching={this.props.setToggleIsFetching}
 
             />
         </>

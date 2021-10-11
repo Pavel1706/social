@@ -15,7 +15,7 @@ type UsersStateType = {
     setCurrent: (value: number) => void
     setTotalUsersCount: (value: number) => void
     onPageChanged:(value:number)=> void
-
+    setToggleIsFetching: (value: boolean)=> void
 }
 
 
@@ -53,12 +53,41 @@ export let Users = (props: UsersStateType) => {
                             t.followed
                                 ?
                                 <button onClick={() => {
-                                    props.unfollowUser(t.id)
+                                    axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${t.id}`,  {
+                                        withCredentials:true,
+                                        headers: {
+                                            'API-KEY':'fae6bcdf-1b7b-4b5f-8f9c-eecd7cb26aa8'
+                                        }
+                                    })
+                                        .then(response => {
+                                            if(response.data.resultCode===0){
+                                                props.unfollowUser(t.id)
+                                            }
+                                        })
+
+
                                 }}>UnFollow</button>
                                 :
                                 <button onClick={() => {
-                                    props.followUser(t.id)
+                                    debugger
+                                    axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${t.id}`, {}, {
+
+                                        withCredentials:true,
+                                        headers: {
+                                            'API-KEY':'fae6bcdf-1b7b-4b5f-8f9c-eecd7cb26aa8'
+                                        }
+
+                                    })
+
+                                        .then(response => {
+                                         if(response.data.resultCode===0){
+                                             props.followUser(t.id)
+                                             debugger
+                                         }
+                                        })
+
                                 }}>Follow</button>
+
                         }
                     </div>
                 </span>

@@ -1,5 +1,5 @@
 import React from 'react';
-import {DreamType} from "./State";
+import {ProfileType} from "./State";
 
 
 let initialState: InitialStateType = {
@@ -10,20 +10,61 @@ let initialState: InitialStateType = {
         {id: 4, message: 'Hey there! Take it easy?', like: 77},
     ],
     newPostText: '',
-    profile: null
+    profile: {
+        userId: 19583,
+        lookingForAJob: true,
+        lookingForAJobDescription: 'it will be fun',
+        fullName: 'Potapiсh',
+        contacts: {
+            github: null,
+            vk: null,
+            facebook: null,
+            instagram: null,
+            twitter: null,
+            website: null,
+            youtube: null,
+            mainLink: null,
+        },
+        photos: {
+            small: 'https://avatarko.ru/img/kartinka/7/zhivotnye_sobaka_6243.jpg',
+            large: 'https://avatarko.ru/img/kartinka/7/zhivotnye_sobaka_6243.jpg'
+        }
+    }
+}
+type ContactsType = {
+    github: string | null
+    vk: string | null
+    facebook: string | null
+    instagram: string | null
+    twitter: string | null
+    website: string | null
+    youtube: string | null
+    mainLink: string | null
 }
 
+export type NewProfileType = {
+    userId: number
+    lookingForAJob: boolean
+    lookingForAJobDescription: string
+    fullName: string
+    contacts: ContactsType
+    photos: {
+        small: string | undefined
+        large: string | undefined
+    }
+}
 export type InitialStateType = {
-    posts: Array<DreamType>
+    posts: Array<ProfileType>
     newPostText: string
-    profile:null
+    profile: NewProfileType
+
 }
 
 export const profileReducer = (state = initialState, action: ProfileActionsType): InitialStateType => {
 
     switch (action.type) {
         case 'ADD-POST':
-            let newPost: DreamType = {
+            let newPost: ProfileType = {
                 id: new Date().getTime(),
                 message: state.newPostText,
                 like: 0
@@ -59,11 +100,11 @@ export const addPostAC = () => {
         type: "ADD-POST"
     } as const
 }
-export const setUserProfileAC=(profile:null)=>{
+export const setUserProfileAC = (profile: any) => {
     return {
         type: 'SET-USER-PROFILE',
-        profile:profile
-    }as const
+        profile: profile
+    } as const
 }
 
 

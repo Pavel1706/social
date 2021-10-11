@@ -1,13 +1,13 @@
 import React from "react";
 
 
-export type DreamTextType = {
-    posts: Array<DreamType>
+export type ProfileNewType = {
+    posts: Array<ProfileType>
     newPostText: string | ''
 
 }
 
-export type DreamType = {
+export type ProfileType = {
     id: number
     message: string
     like: number
@@ -34,7 +34,7 @@ export type MessageType = {
 }
 
 export type StateType = {
-    profilePage: DreamTextType
+    profilePage: ProfileNewType
     dialogsPage: ConversationArrayType
     messagePage: MessageArrayType
 

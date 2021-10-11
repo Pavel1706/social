@@ -8,7 +8,7 @@ let initialState: InitialStateType = {
     email: 'pasha17061987@gmail.com',
     login: 'Pavel1787'
     },
-
+    isAuth:false
 }
 
 type DataType = {
@@ -20,8 +20,7 @@ type DataType = {
 
 export type InitialStateType = {
     data: DataType
-
-
+    isAuth: boolean
 }
 
 export const authReducer = (state = initialState, action: UsersActionsType): InitialStateType => {
@@ -29,7 +28,9 @@ export const authReducer = (state = initialState, action: UsersActionsType): Ini
     switch (action.type) {
         case "SET-USER-DATA":{
             return {...state,
-            data: action.data}
+            data: action.data,
+            isAuth:true
+            }
         }
 
         default:

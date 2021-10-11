@@ -2,7 +2,7 @@ import axios from 'axios';
 import React from 'react';
 import styles from "./users.module.css";
 import {UserType} from "../../Redux/usersReducer";
-import { NavLink } from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
 
 type UsersStateType = {
     usersState: Array<UserType>
@@ -14,10 +14,9 @@ type UsersStateType = {
     currentPage: number
     setCurrent: (value: number) => void
     setTotalUsersCount: (value: number) => void
-    onPageChanged:(value:number)=> void
-    setToggleIsFetching: (value: boolean)=> void
+    onPageChanged: (value: number) => void
+    setToggleIsFetching: (value: boolean) => void
 }
-
 
 
 export let Users = (props: UsersStateType) => {
@@ -31,7 +30,7 @@ export let Users = (props: UsersStateType) => {
     return <div>
         <div>
             {pages.map(t => {
-                return <span  className={props.currentPage === t ? styles.selectedPage : ''}
+                return <span className={props.currentPage === t ? styles.selectedPage : ''}
                              onClick={() => {
                                  props.onPageChanged(t)
                              }}>{t}</span>
@@ -42,7 +41,7 @@ export let Users = (props: UsersStateType) => {
             props.usersState.map(t => <div key={t.id}>
                 <span>
                     <div>
-                        <NavLink to={'/profile/'+t.id}>
+                        <NavLink to={'/profile/' + t.id}>
                         <img
                             src={t.photos.small != null ? t.photos.small : 'https://i.pinimg.com/736x/9b/80/f0/9b80f06c91e4c03c63059d35ff943168.jpg'}
                             className={styles.photo}/>
@@ -53,14 +52,14 @@ export let Users = (props: UsersStateType) => {
                             t.followed
                                 ?
                                 <button onClick={() => {
-                                    axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${t.id}`,  {
-                                        withCredentials:true,
+                                    axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${t.id}`, {
+                                        withCredentials: true,
                                         headers: {
-                                            'API-KEY':'fae6bcdf-1b7b-4b5f-8f9c-eecd7cb26aa8'
+                                            'API-KEY': 'fae6bcdf-1b7b-4b5f-8f9c-eecd7cb26aa8'
                                         }
                                     })
                                         .then(response => {
-                                            if(response.data.resultCode===0){
+                                            if (response.data.resultCode === 0) {
                                                 props.unfollowUser(t.id)
                                             }
                                         })
@@ -72,18 +71,16 @@ export let Users = (props: UsersStateType) => {
                                     debugger
                                     axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${t.id}`, {}, {
 
-                                        withCredentials:true,
+                                        withCredentials: true,
                                         headers: {
-                                            'API-KEY':'fae6bcdf-1b7b-4b5f-8f9c-eecd7cb26aa8'
+                                            'API-KEY': 'fae6bcdf-1b7b-4b5f-8f9c-eecd7cb26aa8'
                                         }
-
                                     })
-
                                         .then(response => {
-                                         if(response.data.resultCode===0){
-                                             props.followUser(t.id)
-                                             debugger
-                                         }
+                                            if (response.data.resultCode === 0) {
+                                                props.followUser(t.id)
+                                                debugger
+                                            }
                                         })
 
                                 }}>Follow</button>

@@ -11,7 +11,6 @@ import {
 } from '../../Redux/usersReducer';
 import {AppStateType} from '../../Redux/reduxStore';
 import {Users} from './Users';
-import axios from 'axios';
 import {Preloader} from "../common/Preloader/Preloader";
 import {usersAPI} from "../../API/Api";
 

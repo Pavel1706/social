@@ -1,12 +1,10 @@
 import React, {useEffect} from 'react';
-import {NavLink, RouteComponentProps, withRouter} from 'react-router-dom';
-import style from './Header.module.css';
+import { RouteComponentProps, withRouter} from 'react-router-dom';
 import {Header} from "./Header";
 import axios from 'axios';
 import {AppStateType} from "../../Redux/reduxStore";
-import {NewProfileType, setUserProfileAC} from "../../Redux/profileReducer";
 import {connect} from 'react-redux';
-import {authReducer, setUserDataAC} from "../../Redux/authReducer";
+import { setUserDataAC} from "../../Redux/authReducer";
 
 type PathParamsType={
     userId: string

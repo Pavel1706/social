@@ -1,4 +1,6 @@
 import axios from "axios";
+import { useEffect } from "react";
+import {NewProfileType} from "../Redux/profileReducer";
 
 
 // const baseUrl = 'https://social-network.samuraijs.com/api/1.0/'
@@ -16,10 +18,26 @@ const instance = axios.create({
      getUsers(currentPage: number, pageSize: number)  {
          return instance.get(`users?page=${currentPage}&count=${pageSize}`)
              .then(responce => responce.data)
+     },
+     follow(userId:number){
+         return instance.post(`https://social-network.samuraijs.com/api/1.0/follow/${userId}`, {}
+         )
+     },
+     unFollow(userId:number){
+        return instance.delete(`https://social-network.samuraijs.com/api/1.0/follow/${userId}`)
      }
  }
 
-// export const getUsers = (currentPage: number, pageSize: number) => {
-//     return instance.get(`users?page=${currentPage}&count=${pageSize}`)
-//         .then(responce => responce.data)
-// }
+ export const loginAPI = {
+     getLogin() {
+         return instance.get(`https://social-network.samuraijs.com/api/1.0/auth/me`)
+
+     }
+ }
+export const profileAPI = {
+    getProfile(userId:string) {
+        return instance.get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`)
+
+    }
+}
+

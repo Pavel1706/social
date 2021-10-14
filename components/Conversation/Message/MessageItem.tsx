@@ -1,4 +1,5 @@
 import React, {ChangeEvent} from 'react';
+import { Redirect } from 'react-router-dom';
 import p from '../Conversation.module.css'
 import {Message} from "../Message";
 import {AllMessageType} from "./MessageItemContainer";
@@ -16,6 +17,7 @@ export const MessageItem = (props: AllMessageType) => {
         props.sendMessage()
     }
 
+   if (!props.isAuth) return <Redirect to={'/login'}/>
     return (
 
         <div className={p.text}>

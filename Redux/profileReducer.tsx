@@ -1,5 +1,7 @@
 import React from 'react';
 import {ProfileType} from "./State";
+import {AppThunk} from "./reduxStore";
+import {profileAPI} from "../API/Api";
 
 
 let initialState: InitialStateType = {
@@ -29,7 +31,9 @@ let initialState: InitialStateType = {
             small: 'https://avatarko.ru/img/kartinka/7/zhivotnye_sobaka_6243.jpg',
             large: 'https://avatarko.ru/img/kartinka/7/zhivotnye_sobaka_6243.jpg'
         }
-    }
+    },
+    status: '',
+    updateStatus: '',
 }
 type ContactsType = {
     github: string | null
@@ -49,14 +53,16 @@ export type NewProfileType = {
     fullName: string
     contacts: ContactsType
     photos: {
-        small: string | undefined
-        large: string | undefined
+        small: string
+        large: string
     }
 }
 export type InitialStateType = {
     posts: Array<ProfileType>
     newPostText: string
     profile: NewProfileType
+    status:string
+    updateStatus:string
 
 }
 
@@ -80,8 +86,15 @@ export const profileReducer = (state = initialState, action: ProfileActionsType)
                 newPostText: action.newText
             }
         case 'SET-USER-PROFILE':
+
             return {
+
                 ...state, profile: action.profile
+            }
+        case "SET-USER-STATUS":
+
+            return {
+                ...state, status: action.status
             }
         default:
             return state
@@ -100,15 +113,51 @@ export const addPostAC = () => {
         type: "ADD-POST"
     } as const
 }
-export const setUserProfileAC = (profile: any) => {
+export const setUserProfileAC = (profile: NewProfileType) => {
     return {
         type: 'SET-USER-PROFILE',
         profile: profile
+    } as const
+}
+export const setStatusAC = (status: string) => {
+    return {
+        type: 'SET-USER-STATUS',
+        status: status
     } as const
 }
 
 
 type ChangeNewTextActionType = ReturnType<typeof changeNewTextAC>
 type SetUserProfileType = ReturnType<typeof setUserProfileAC>
+type GetUserProfileType = ReturnType<typeof setStatusAC>
 type AddPostActionType = ReturnType<typeof addPostAC>
-type ProfileActionsType = ChangeNewTextActionType | AddPostActionType | SetUserProfileType
+export type ProfileActionsType = ChangeNewTextActionType | AddPostActionType
+    | SetUserProfileType | GetUserProfileType
+
+export const setProfileTC=(userId:string):AppThunk=> {
+    return (dispatch)=> {
+        profileAPI.getProfile(userId)
+            .then(response => {
+                dispatch(setUserProfileAC(response.data))
+            })
+    }
+}
+export const getProfileStatusTC=(userId:string):AppThunk=> {
+    return (dispatch)=> {
+        profileAPI.getStatus(userId)
+            .then(response => {
+                debugger
+                dispatch(setStatusAC(response.data))
+            })
+    }
+}
+export const updateStatusTC=(status:string):AppThunk=> {
+    return (dispatch)=> {
+        profileAPI.updateStatus(status)
+            .then(response => {
+                if(response.data.resultCode=== 0) {
+                    dispatch(setStatusAC(status))
+                }
+            })
+    }
+}

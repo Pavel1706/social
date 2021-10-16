@@ -56,7 +56,7 @@ export let Users = (props: UsersStateType) => {
                             t.followed
                                 ?
                                 <button disabled={props.followingInProgress.some(id=>id===t.id)} onClick={() => {
-                                    debugger
+
                                     props.setToggleIsFollowing(true,t.id)
                                       props.unFollowUserTC(t.id)
 
@@ -64,7 +64,7 @@ export let Users = (props: UsersStateType) => {
                                 }}>UnFollow</button>
                                 :
                                 <button disabled={props.followingInProgress.some(id=>id===t.id)} onClick={() => {
-                                    debugger
+
                                     props.setToggleIsFollowing(true,t.id)
                                     props.followUserTC(t.id)
 

@@ -1,9 +1,5 @@
 import axios from "axios";
-import { useEffect } from "react";
-import {NewProfileType} from "../Redux/profileReducer";
 
-
-// const baseUrl = 'https://social-network.samuraijs.com/api/1.0/'
 
 const instance = axios.create({
     withCredentials: true,
@@ -37,7 +33,12 @@ const instance = axios.create({
 export const profileAPI = {
     getProfile(userId:string) {
         return instance.get(`profile/${userId}`)
-
+    },
+    getStatus(userId:string){
+        return instance.get(`profile/status/${userId}`)
+    },
+    updateStatus(status:string){
+        return instance.put(`profile/status/`, {status:status})
     }
 }
 

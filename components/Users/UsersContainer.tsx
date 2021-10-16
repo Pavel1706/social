@@ -12,7 +12,9 @@ import {
 import {AppStateType} from '../../Redux/reduxStore';
 import {Users} from './Users';
 import {Preloader} from "../common/Preloader/Preloader";
-
+import {withAuthRedirect} from "../../Hoc/withAuthRedirect";
+import { compose } from 'redux';
+import { withRouter} from 'react-router-dom';
 
 export type UsersStateType = {
     usersState: Array<UserType>
@@ -32,7 +34,7 @@ export type UsersStateType = {
 }
 
 
-export class UsersContainerComponent extends React.Component<UsersStateType, {}> {
+class UsersContainer extends React.Component<UsersStateType, {}> {
 
     componentDidMount() {
 
@@ -104,13 +106,18 @@ const mapDispatchToProps = (dispatch: (action: UsersActionsType) => void) => {
     }
 }
 
-export const UsersContainer = connect(mapStateToProps, {
-    setUsers: setUsersAC,
-    setCurrent: setCurrentPageAC,
-    setTotalUsersCount: setUsersTotalCountAC,
-    setToggleIsFetching: setToggleIsFetchingAC,
-    setToggleIsFollowing: setToggleIsFollowingAC,
-    getUsersThunkCreator: getUsersTC,
-    followUserTC: followUserTC,
-    unFollowUserTC:unFollowUserTC,
-})(UsersContainerComponent)
+
+export default compose<React.ComponentType>(
+    connect(mapStateToProps, {
+        setUsers: setUsersAC,
+        setCurrent: setCurrentPageAC,
+        setTotalUsersCount: setUsersTotalCountAC,
+        setToggleIsFetching: setToggleIsFetchingAC,
+        setToggleIsFollowing: setToggleIsFollowingAC,
+        getUsersThunkCreator: getUsersTC,
+        followUserTC: followUserTC,
+        unFollowUserTC:unFollowUserTC,
+    }),
+    withRouter,
+    withAuthRedirect
+)(UsersContainer)

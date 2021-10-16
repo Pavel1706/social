@@ -5,10 +5,10 @@ import {Conversation} from "./components/Conversation/Conversation";
 import {Route} from "react-router-dom";
 import {Friends} from "./components/Friends/Friends";
 import {store} from "./Redux/State";
-import {UsersContainer} from "./components/Users/UsersContainer";
 import ProfileContainer from "./components/Face/ProfileContainer";
 import HeaderContainer from './components/Header/HeaderContainer';
 import {Login} from "./components/LoginComponent/Login";
+import UsersContainer from "./components/Users/UsersContainer";
 
 
 

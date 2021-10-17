@@ -1,17 +1,18 @@
 import React from 'react';
 import {AppThunk} from "./reduxStore";
-import {loginAPI} from "../API/Api";
+import {AuthMeAPI} from "../API/Api";
 import {Dispatch} from 'redux';
 
 
 let initialState: InitialStateType = {
     data:
         {
-            id: 19583,
+            id: 2,
             email: 'pasha17061987@gmail.com',
-            login: 'Pavel1787'
+            login: 'Pavel1787',
         },
-    isAuth: false
+    isAuth: false,
+
 }
 
 type DataType = {
@@ -19,11 +20,13 @@ type DataType = {
     email: string
     login: string
 
+
 }
 
 export type InitialStateType = {
     data: DataType
     isAuth: boolean
+
 }
 
 export const authReducer = (state = initialState, action: LoginActionsType): InitialStateType => {
@@ -33,7 +36,8 @@ export const authReducer = (state = initialState, action: LoginActionsType): Ini
             return {
                 ...state,
                 data: action.data,
-                isAuth: true
+                isAuth: true,
+
             }
         }
         default:
@@ -49,18 +53,18 @@ export const setUserDataAC = (id: number, email: string, login: string) => {
             id: id,
             email: email,
             login: login,
-        }
+        },
+
     } as const
 }
 
 
 
-export const getLoginTC = () => (dispatch:Dispatch<setUserDataACType>) => {
-        loginAPI.getLogin().then(response => {
+export const getAuthTC = () => (dispatch:Dispatch<setUserDataACType>) => {
+    AuthMeAPI.getAuth().then(response => {
             if (response.data.resultCode === 0) {
                 let {id, email, login} = response.data.data
                 dispatch(setUserDataAC(id, email, login))
-
             }
 
         })

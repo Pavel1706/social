@@ -8,6 +8,7 @@ import {addNewMessageAC, InitialStateMessageType, NewMessageAC} from "../../../R
 type MessageStatePropsType = {
     messagePage: InitialStateMessageType
     newMessage: string
+    isAuth:boolean
 
 }
 type MapDispatchPropsType = {
@@ -17,7 +18,8 @@ type MapDispatchPropsType = {
 let messageStateToProps = (state: AppStateType): MessageStatePropsType => {
     return {
         messagePage: state.messagePage,
-        newMessage: state.messagePage.newMessage
+        newMessage: state.messagePage.newMessage,
+        isAuth: state.auth.isAuth
     }
 }
 

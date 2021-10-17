@@ -8,7 +8,7 @@ import {AllMessageType} from "./MessageItemContainer";
 export const MessageItem = (props: AllMessageType) => {
 
 
-    let messageElement = props.messagePage.messageData.map(m => <Message message={m.message}/>)
+    let messageElement = props.messagePage.messageData.map(m => <Message key ={m.id} message={m.message}/>)
     let newTextElement = (e: ChangeEvent<HTMLTextAreaElement>) => {
         let body = e.currentTarget.value;
         props.updateNewMessageBody(body)

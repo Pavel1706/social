@@ -1,15 +1,13 @@
 import React, {useEffect} from 'react';
 import { RouteComponentProps, withRouter} from 'react-router-dom';
 import {Header} from "./Header";
-import axios from 'axios';
 import {AppStateType} from "../../Redux/reduxStore";
 import {connect,useDispatch} from 'react-redux';
-import {getLoginTC, setUserDataAC} from "../../Redux/authReducer";
-import {loginAPI, usersAPI} from "../../API/Api";
+import {getAuthTC, setUserDataAC} from "../../Redux/authReducer";
+
 
 type PathParamsType={
     userId: string
-
 }
 
 
@@ -25,6 +23,7 @@ type MapStatePropsType = {
         login: string
     }
     isAuth: boolean
+
 }
 type MapDispatchPropsType={
     setUserData: (id:number, email:string, login:string)=> void
@@ -37,7 +36,7 @@ type PropsType = RouteComponentProps<PathParamsType>& UsersStateType
 function HeaderContainer(props:PropsType) {
 const dispatch = useDispatch()
     useEffect(() => {
-dispatch(getLoginTC())
+dispatch(getAuthTC())
 
 
     }, [])
@@ -57,5 +56,5 @@ let WithUrlDataContainerComponent = withRouter(HeaderContainer)
 
 export default connect(mapStateToProps, {
     setUserData: setUserDataAC,
-    getLogin:getLoginTC
+    getLogin:getAuthTC
 })(WithUrlDataContainerComponent)

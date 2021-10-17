@@ -24,8 +24,8 @@ const instance = axios.create({
      }
  }
 
- export const loginAPI = {
-     getLogin() {
+ export const AuthMeAPI = {
+     getAuth() {
          return instance.get(`auth/me`)
 
      }

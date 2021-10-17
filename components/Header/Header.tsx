@@ -7,6 +7,7 @@ type LoginType = {
     data: DataType
     isAuth: boolean
 
+
 }
 
 

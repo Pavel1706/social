@@ -152,7 +152,7 @@ export const getUsersTC = (currentPage: number,pageSize:number): AppThunk => {
     return (dispatch) => {
         dispatch(setToggleIsFetchingAC(true))
         dispatch(setCurrentPageAC(currentPage))
-        debugger
+
         usersAPI.getUsers(currentPage, pageSize)
             .then(data => {
                 dispatch(setToggleIsFetchingAC(false))

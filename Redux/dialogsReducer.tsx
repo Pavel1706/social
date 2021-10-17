@@ -23,4 +23,4 @@ export const newDialogAC= ()=> {
         type: 'DIALOG-MESSAGE'
     } as const
 }
-type DialogType = ReturnType<typeof newDialogAC >
+export type DialogType = ReturnType<typeof newDialogAC >

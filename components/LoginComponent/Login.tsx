@@ -38,8 +38,8 @@ export const Login = () => {
     }
     return (
         <div>
-            <h1>W-E-L-C-O-M-E</h1>
-            
+            <h1>LOGIN</h1>
+
             <LoginReduxForm onSubmit={onSubmit}/>
         </div>
     )

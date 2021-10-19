@@ -2,9 +2,12 @@ import React from 'react';
 import p from './FaceInfo.module.css';
 import {Preloader} from "../../common/Preloader/Preloader";
 import {NewProfileType} from "../../../Redux/profileReducer";
+import { ProfileStatus } from '../ProfileStatus';
 
 type ProfileType = {
     profile: NewProfileType
+    status: string
+    updateStatus: (value:string)=> void
 }
 
 
@@ -21,8 +24,10 @@ export const ProfileInfo = (props:ProfileType ) => {
                     src='https://p.bigstockphoto.com/GeFvQkBbSLaMdpKXF1Zv_bigstock-Aerial-View-Of-Blue-Lakes-And--227291596.jpg'/>
             </div>
             <div className={p.descriptionBlock}>
-                <img width='100px' height='100px' src={props.profile.photos.large}/>
+
+                <img width='100px' height='100px' src={props.profile.photos.small||'https://avatarko.ru/img/kartinka/7/zhivotnye_sobaka_6243.jpg'}/>
                 {props.profile.fullName}
+                <ProfileStatus status={props.status} updateStatus={props.updateStatus}/>
             </div>
 
         </div>

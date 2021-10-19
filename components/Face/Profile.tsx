@@ -5,16 +5,18 @@ import {NewProfileType} from "../../Redux/profileReducer";
 
 type ProfilePropsType = {
     profile: NewProfileType
+    status: string
+    updateStatus:(value:string)=> void
 }
 
 export const Profile = (props:ProfilePropsType) => {
 
     return (
         <div>
-            <ProfileInfo profile={props.profile}/>
-            <SuperDialogsContainer
-
-            />
+            <ProfileInfo profile={props.profile}
+                         status={props.status}
+                         updateStatus={props.updateStatus}/>
+            <SuperDialogsContainer      />
         </div>
     )
 }

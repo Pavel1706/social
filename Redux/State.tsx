@@ -11,6 +11,7 @@ export type ProfileType = {
     id: number
     message: string
     like: number
+
 }
 
 export type ConversationType = {

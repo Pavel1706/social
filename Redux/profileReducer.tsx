@@ -11,7 +11,8 @@ let initialState: InitialStateType = {
         {id: 3, message: 'Hey buddy! How`re you?', like: 35},
         {id: 4, message: 'Hey there! Take it easy?', like: 77},
     ],
-    newPostText: '',
+    // newPostText: '',
+
     profile: {
         userId: 19583,
         lookingForAJob: true,
@@ -59,10 +60,11 @@ export type NewProfileType = {
 }
 export type InitialStateType = {
     posts: Array<ProfileType>
-    newPostText: string
+    // newPostText: string
     profile: NewProfileType
-    status:string
-    updateStatus:string
+    status: string
+    updateStatus: string
+
 
 }
 
@@ -70,21 +72,23 @@ export const profileReducer = (state = initialState, action: ProfileActionsType)
 
     switch (action.type) {
         case 'ADD-POST':
+            debugger
             let newPost: ProfileType = {
                 id: new Date().getTime(),
-                message: state.newPostText,
-                like: 0
+                message: action.value,
+                like: 0,
             }
+            debugger
             return {
                 ...state,
                 posts: [...state.posts, newPost],
-                newPostText: ''
+
             }
-        case 'CHANGE-NEW-TEXT':
-            return {
-                ...state,
-                newPostText: action.newText
-            }
+        // case 'CHANGE-NEW-TEXT':
+        //     return {
+        //         ...state,
+        //         newPostText: action.newText
+        //     }
         case 'SET-USER-PROFILE':
 
             return {
@@ -108,9 +112,11 @@ export const changeNewTextAC = (newText: string) => {
     } as const
 }
 
-export const addPostAC = () => {
+export const addPostAC = (value: string) => {
     return {
-        type: "ADD-POST"
+        type: "ADD-POST",
+        value: value,
+
     } as const
 }
 export const setUserProfileAC = (profile: NewProfileType) => {
@@ -134,16 +140,16 @@ type AddPostActionType = ReturnType<typeof addPostAC>
 export type ProfileActionsType = ChangeNewTextActionType | AddPostActionType
     | SetUserProfileType | GetUserProfileType
 
-export const setProfileTC=(userId:string):AppThunk=> {
-    return (dispatch)=> {
+export const setProfileTC = (userId: string): AppThunk => {
+    return (dispatch) => {
         profileAPI.getProfile(userId)
             .then(response => {
                 dispatch(setUserProfileAC(response.data))
             })
     }
 }
-export const getProfileStatusTC=(userId:string):AppThunk=> {
-    return (dispatch)=> {
+export const getProfileStatusTC = (userId: string): AppThunk => {
+    return (dispatch) => {
         profileAPI.getStatus(userId)
             .then(response => {
                 debugger
@@ -151,11 +157,11 @@ export const getProfileStatusTC=(userId:string):AppThunk=> {
             })
     }
 }
-export const updateStatusTC=(status:string):AppThunk=> {
-    return (dispatch)=> {
+export const updateStatusTC = (status: string): AppThunk => {
+    return (dispatch) => {
         profileAPI.updateStatus(status)
             .then(response => {
-                if(response.data.resultCode=== 0) {
+                if (response.data.resultCode === 0) {
                     dispatch(setStatusAC(status))
                 }
             })

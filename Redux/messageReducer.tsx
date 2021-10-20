@@ -25,39 +25,26 @@ type MessageType = {
 export const messageReducer = (state: InitialStateMessageType = initialState, action: NewMessageActionType): InitialStateMessageType => {
     switch (action.type) {
         case "ADD-NEW-MESSAGE":
+            debugger
             let newPost: MessageType = {
                 id: new Date().getTime(),
-                message: state.newMessage
+                message: action.title
             }
             return {
                 ...state,
                 messageData: [...state.messageData, newPost],
-                newMessage: ''
-
-            }
-        case "NEW-MESSAGE" :
-            return {
-                ...state,
-                newMessage: action.postText
             }
         default:
             return state
     }
 }
 
-export const NewMessageAC = (newMessage: string) => {
+export const addNewMessageAC = (title:string) => {
     return {
-        type: 'NEW-MESSAGE',
-        postText: newMessage
-    } as const
-}
-export const addNewMessageAC = () => {
-    return {
-        type: 'ADD-NEW-MESSAGE'
+        type: 'ADD-NEW-MESSAGE',
+        title:title,
     } as const
 }
 
-
-export type NewMessageActionType = NewMessageType | AddNewMessageType
-type NewMessageType = ReturnType<typeof NewMessageAC>
+export type NewMessageActionType =  AddNewMessageType
 type AddNewMessageType = ReturnType<typeof addNewMessageAC>

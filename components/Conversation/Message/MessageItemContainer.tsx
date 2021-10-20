@@ -3,7 +3,7 @@ import {AppStateType} from "../../../Redux/reduxStore";
 import {MessageItem} from "./MessageItem";
 import {Dispatch} from 'redux';
 import {connect} from 'react-redux';
-import {addNewMessageAC, InitialStateMessageType, NewMessageAC} from "../../../Redux/messageReducer";
+import {addNewMessageAC, InitialStateMessageType} from "../../../Redux/messageReducer";
 
 type MessageStatePropsType = {
     messagePage: InitialStateMessageType
@@ -12,8 +12,7 @@ type MessageStatePropsType = {
 
 }
 type MapDispatchPropsType = {
-    updateNewMessageBody: (text: string) => void
-    sendMessage: () => void
+    sendMessage: (value:string) => void
 }
 let messageStateToProps = (state: AppStateType): MessageStatePropsType => {
     return {
@@ -27,11 +26,8 @@ export type AllMessageType = MessageStatePropsType & MapDispatchPropsType
 
 let messageDispatchToProps = (dispatch: Dispatch): MapDispatchPropsType => {
     return {
-        updateNewMessageBody: (body: string) => {
-            dispatch(NewMessageAC(body))
-        },
-        sendMessage: () => {
-            dispatch(addNewMessageAC())
+        sendMessage: (value: string) => {
+            dispatch(addNewMessageAC(value))
         }
     }
 }

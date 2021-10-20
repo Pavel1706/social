@@ -32,15 +32,13 @@ export class ProfileStatus extends React.Component<ProfileStatusType, {}> {
         })
     }
     componentDidUpdate(prevProps:{status:string}, prevState:{status:string}){
-        console.log(prevProps)
-        console.log(prevState)
+
         if(prevProps.status !== this.props.status) {
             this.setState({
                 status: this.props.status
             })
         }
 
-        console.log('I did it')
     }
 
 
@@ -65,3 +63,5 @@ export class ProfileStatus extends React.Component<ProfileStatusType, {}> {
         </>
     }
 }
+
+

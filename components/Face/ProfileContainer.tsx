@@ -43,8 +43,6 @@ function ProfileContainer(props: PropsType) {
 
             dispatch(getProfileStatusTC(userId))
 
-        // dispatch(getProfileStatusTC(userId))
-        // dispatch(updateStatusTC(props.status))
     }, [])
 
     return (

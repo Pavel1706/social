@@ -14,7 +14,7 @@ export const MessageItem = (props: AllMessageType) => {
     let messageElement = props.messagePage.messageData.map(m => <Message key ={m.id} message={m.message}/>)
 
     const addNewMessage = (formData: FormDataType) => {
-        debugger
+
         props.sendMessage(formData.newMessageBody)
 
     }

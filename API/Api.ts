@@ -28,11 +28,15 @@ const instance = axios.create({
      getAuth() {
          return instance.get(`auth/me`);
      },
-     loginIn(email:string,password:string, rememberMe:boolean){
-         return instance.post(`auth/login`, {email,password,rememberMe});
+     loginIn(email:string,password:string, rememberMe:boolean,captcha:boolean){
+         return instance.post(`auth/login`, {email,password,rememberMe,captcha:false});
      },
      loginOut(){
          return instance.delete(`auth/login`,)
+     },
+     getCaptcha(){
+         debugger
+         return instance.get(`/security/get-captcha-url`)
      }
  }
 export const profileAPI = {

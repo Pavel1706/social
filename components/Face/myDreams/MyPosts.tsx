@@ -14,7 +14,7 @@ export const MyPosts = (props: MyPostsPropsType) => {
     let newText = props.profilePage.posts.map(d => <Post key={d.id} message={d.message} like={d.like}/>)
     // let newDreamElement = React.createRef<HTMLTextAreaElement>()
     let onAddPost = (formData: FormDataType) => {
-        debugger
+
         props.addPost(formData.newPostBody)
     }
     // const newChangeTextArea = (e: ChangeEvent<HTMLTextAreaElement>) => {

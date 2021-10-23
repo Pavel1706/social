@@ -6,11 +6,11 @@ import {
     getProfileStatusTC,
     NewProfileType,
     setProfileTC,
-    setUserProfileAC, updateStatusTC
+     updateStatusTC
 } from "../../Redux/profileReducer";
-import {Redirect, RouteComponentProps, withRouter} from 'react-router-dom';
+import { RouteComponentProps, withRouter} from 'react-router-dom';
 import { compose } from 'redux';
-import {withAuthRedirect} from "../../Hoc/withAuthRedirect";
+
 
 
 
@@ -21,7 +21,8 @@ type PathParamsType = {
 type MapStatePropsType = {
     profile: NewProfileType
     status: string
-
+    isAuth: boolean
+    authorizedUserId: number
 }
 
 type MapDispatchPropsType = {
@@ -35,9 +36,11 @@ function ProfileContainer(props: PropsType) {
 
     const dispatch = useDispatch()
     useEffect(() => {
+        debugger
         let userId = props.match.params.userId
-        if (!userId&&props.profile) {
-           userId= props.profile.userId.toString()
+        if (!userId) {
+            debugger
+           userId= props.authorizedUserId.toString()
         }
         dispatch(setProfileTC(userId))
 
@@ -46,7 +49,9 @@ function ProfileContainer(props: PropsType) {
     }, [])
 
     return (
-        <Profile profile={props.profile} status={props.status} updateStatus={props.upDateStatus}/>
+        <Profile profile={props.profile}
+                 status={props.status}
+                 updateStatus={props.upDateStatus}/>
     )
 
 }
@@ -57,7 +62,8 @@ function ProfileContainer(props: PropsType) {
 const mapStateToProps = (state: AppStateType): MapStatePropsType => ({
     profile: state.profilePage.profile,
     status: state.profilePage.status,
-
+    isAuth: state.auth.isAuth,
+    authorizedUserId: state.auth.data.id,
 })
 
 

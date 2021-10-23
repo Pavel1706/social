@@ -72,13 +72,13 @@ export const profileReducer = (state = initialState, action: ProfileActionsType)
 
     switch (action.type) {
         case 'ADD-POST':
-            debugger
+
             let newPost: ProfileType = {
                 id: new Date().getTime(),
                 message: action.value,
                 like: 0,
             }
-            debugger
+
             return {
                 ...state,
                 posts: [...state.posts, newPost],
@@ -90,7 +90,7 @@ export const profileReducer = (state = initialState, action: ProfileActionsType)
         //         newPostText: action.newText
         //     }
         case 'SET-USER-PROFILE':
-
+            debugger
             return {
 
                 ...state, profile: action.profile
@@ -152,7 +152,6 @@ export const getProfileStatusTC = (userId: string): AppThunk => {
     return (dispatch) => {
         profileAPI.getStatus(userId)
             .then(response => {
-                debugger
                 dispatch(setStatusAC(response.data))
             })
     }

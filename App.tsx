@@ -12,12 +12,9 @@ import Login from "./components/LoginComponent/Login";
 
 
 
-
 const App: React.FC = () => {
 
-
     return (
-
             <div className='app-wrapper'>
                 <HeaderContainer/>
                 <Nav dialogs={store._state.dialogsPage.dialogs}/>

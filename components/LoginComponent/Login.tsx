@@ -23,7 +23,7 @@ type MapStatePropsType={
 
 type  MapDispatchPropsType={
     LoginTC: (email: string, password: string, rememberMe: boolean,captcha:boolean)=> void
-    
+
 }
 
 type AllType= MapStatePropsType & MapDispatchPropsType

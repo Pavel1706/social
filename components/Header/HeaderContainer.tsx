@@ -1,13 +1,14 @@
 import React, {useEffect} from 'react';
-import { RouteComponentProps, withRouter} from 'react-router-dom';
+import {RouteComponentProps, withRouter} from 'react-router-dom';
 import {Header} from "./Header";
 import {AppStateType} from "../../Redux/reduxStore";
-import {connect,useDispatch} from 'react-redux';
-import {getAuthTC, setUserDataAC} from "../../Redux/authReducer";
+import {connect, useDispatch} from 'react-redux';
+import {getAuthTC, LoginOutTC, setUserDataAC} from "../../Redux/authReducer";
 
 
-type PathParamsType={
+type PathParamsType = {
     userId: string
+
 }
 
 
@@ -25,29 +26,32 @@ type MapStatePropsType = {
     isAuth: boolean
 
 }
-type MapDispatchPropsType={
-    setUserData: (id:number, email:string, login:string)=> void
+type MapDispatchPropsType = {
+    setUserData: (id: number | null, email: string | null, login: string | null, isAuth: boolean) => void
 
 }
 
- type UsersStateType= MapStatePropsType & MapDispatchPropsType
-type PropsType = RouteComponentProps<PathParamsType>& UsersStateType
+type UsersStateType = MapStatePropsType & MapDispatchPropsType
+type PropsType = RouteComponentProps<PathParamsType> & UsersStateType
 
-function HeaderContainer(props:PropsType) {
-const dispatch = useDispatch()
+function HeaderContainer(props: PropsType) {
+    const dispatch = useDispatch()
     useEffect(() => {
-dispatch(getAuthTC())
-
-
+        dispatch(getAuthTC())
     }, [])
+
+    const logOut = () => {
+        dispatch(LoginOutTC())
+    }
+
     return (
-        <Header data={props.data} isAuth={props.isAuth}  />
+        <Header data={props.data} isAuth={props.isAuth} logout={logOut}/>
     )
 }
 
 const mapStateToProps = (state: AppStateType): MapStatePropsType => ({
     data: state.auth.data,
-    isAuth: state.auth.isAuth,
+    isAuth: state.auth.isAuth
 
 })
 
@@ -56,5 +60,6 @@ let WithUrlDataContainerComponent = withRouter(HeaderContainer)
 
 export default connect(mapStateToProps, {
     setUserData: setUserDataAC,
-    getLogin:getAuthTC
+    getLogin: getAuthTC,
+    logout: LoginOutTC
 })(WithUrlDataContainerComponent)

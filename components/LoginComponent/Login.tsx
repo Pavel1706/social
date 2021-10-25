@@ -7,6 +7,7 @@ import {getCaptchaTC, LoginTC} from "../../Redux/authReducer";
 import { Redirect } from 'react-router-dom';
 import {AppStateType} from "../../Redux/reduxStore";
 import {Captcha} from "./Captcha";
+import styles from '../common/FormsControls/FormControls.module.css'
 
 type FormDataType = {
     email: string
@@ -57,8 +58,11 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType>> =
                 <div>
                     <Field type={'checkbox'} name={'rememberMe'} component={Input}/> remember me
                 </div>
+                {props.error? <div className={styles.formSummaryError}>
+                    {props.error}
+                </div>:''}
                 <div>
-                    <button>Login</button>
+                    <button type="submit">Login</button>
                 </div>
             </form>
         )
@@ -71,18 +75,16 @@ const LoginReduxForm = reduxForm<FormDataType>({form: 'login'})(LoginForm)
     const onSubmit = (formData: FormDataType) => {
         props.LoginTC(formData.email,formData.password,formData.rememberMe,formData.captcha)
     }
-    // if(props.captcha!==''){
-    //    return <Captcha captcha={props.captcha} />
-    // }
 
-    // if(props.isAuth===false){
-    //     debugger
-    //     return <Redirect to={"/profile"}/>
-    // }
+
+    if(props.isAuth){
+
+        return <Redirect to={"/profile"}/>
+    }
     return (
         <div>
             <h1>LOGIN</h1>
-            {/*<Captcha captcha={props.captcha} />*/}
+
             <LoginReduxForm onSubmit={onSubmit} />
 
             <img src={props.captcha}/>

@@ -1,9 +1,8 @@
-import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import React from 'react';
 import {NavLink} from 'react-router-dom';
 import style from './Header.module.css';
 import {DataType} from "./HeaderContainer";
-import {LoginOutTC} from "../../Redux/authReducer";
+
 
 
 type LoginType = {

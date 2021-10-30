@@ -33,7 +33,7 @@ export type InitialStateType = {
 export const authReducer = (state = initialState, action: LoginActionsType): InitialStateType => {
     switch (action.type) {
         case "SET-USER-DATA": {
-            debugger
+
             return {
                 ...state,
                 ...action.data,
@@ -68,17 +68,13 @@ const getCaptchaAC=(captcha:string)=>{
 }
 
 
-export const getAuthTC = ():AppThunk=> {
-    return (dispatch) => {
-    AuthMeAPI.getAuth().then(response => {
+export const getAuthTC = ():AppThunk=> (dispatch) => {
+   return AuthMeAPI.getAuth().then(response => {
         if (response.data.resultCode === 0) {
             let {id, email, login} = response.data.data
-
             dispatch(setUserDataAC(id, email, login, true))
         }
-
     })
-    }
 }
 export const LoginTC = (email: string, password: string, rememberMe: boolean,captcha:boolean): AppThunk => {
     return (dispatch) => {

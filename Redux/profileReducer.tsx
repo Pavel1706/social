@@ -90,7 +90,7 @@ export const profileReducer = (state = initialState, action: ProfileActionsType)
         //         newPostText: action.newText
         //     }
         case 'SET-USER-PROFILE':
-            debugger
+
             return {
 
                 ...state, profile: action.profile

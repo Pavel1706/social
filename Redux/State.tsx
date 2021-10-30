@@ -48,7 +48,6 @@ export type StoreType = {
     _onChange: () => void
     subscribe: (callback: () => void) => void
     getState: () => StateType
-    // dispatch: (action: ActionTypes)=> void
 }
 
 

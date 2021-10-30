@@ -10,7 +10,7 @@ let initialState: InitialStateType = {
     pageSize: 5,
     totalUsersCount: 0,
     currentPage: 1,
-    isFetching: false,
+    isFetching: true,
     followingInProgress: []
 }
 
@@ -59,6 +59,7 @@ export const usersReducer = (state = initialState, action: UsersActionsType): In
                 })
             }
         case "SET-USERS":
+            debugger
             return {...state, users: action.users}
         case 'SET-CURRENT-PAGE':
             return {...state, currentPage: action.currentPage}
@@ -148,13 +149,15 @@ export type UsersActionsType = ChangeUserFollowType | ChangeUserUnFollowType
 //             })
 //     };
 // };
-export const getUsersTC = (currentPage: number,pageSize:number): AppThunk => {
+export const getUsersTC = (page: number,pageSize:number): AppThunk => {
     return (dispatch) => {
         dispatch(setToggleIsFetchingAC(true))
-        dispatch(setCurrentPageAC(currentPage))
+        dispatch(setCurrentPageAC(page))
 
-        usersAPI.getUsers(currentPage, pageSize)
+        usersAPI.getUsers(page, pageSize)
+
             .then(data => {
+                debugger
                 dispatch(setToggleIsFetchingAC(false))
                 dispatch(setUsersAC(data.items))
                 dispatch(setUsersTotalCountAC(data.totalCount))

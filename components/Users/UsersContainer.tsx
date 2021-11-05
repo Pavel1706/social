@@ -20,7 +20,6 @@ import {
     getIsFetching,
     getPageSize,
     getTotalUsersCount, getUsers,
-
 } from "../../Redux/users-selectors";
 
 export type UsersStateType = {

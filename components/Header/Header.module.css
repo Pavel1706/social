@@ -1,6 +1,6 @@
 .header {
     grid-area: h;
-    background-color: green;
+    background-color: #d3ecf1;
 }
 .header img {
     width: 50px;
@@ -10,5 +10,5 @@
     float: right;
 }
 .loginBlock a {
-    color: white;
+    color: #66bfbf;
 }

@@ -1,9 +1,7 @@
-import axios from 'axios';
 import React from 'react';
 import styles from "./users.module.css";
-import {followUserTC, UserType} from "../../Redux/usersReducer";
+import {UserType} from "../../Redux/usersReducer";
 import {NavLink} from 'react-router-dom';
-import {usersAPI} from "../../API/Api";
 
 type UsersStateType = {
     usersState: Array<UserType>
